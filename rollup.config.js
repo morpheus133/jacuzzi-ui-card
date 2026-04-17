@@ -14,7 +14,7 @@ const IGNORED_FILES = [
 const dev = process.env.ROLLUP_WATCH;
 
 const serveOptions = {
-    contentBase: ["./dist"],
+    contentBase: ["."],
     host: "0.0.0.0",
     port: 4000,
     allowCrossOrigin: true,
@@ -63,7 +63,7 @@ export default [
         input: "src/better-jacuzzi-ui.ts",
         output: {
             inlineDynamicImports: true,
-            file: "dist/better-jacuzzi-ui-card.js",
+            file: "better-jacuzzi-ui-card.js",
             format: "es",
         },
         plugins,

@@ -6,11 +6,11 @@ Typical source: **Local Tuya** (or any integration) exposing a `climate` entity 
 
 ## Install (HACS)
 
-1. Add this repository as a [custom repository](https://hacs.xyz/docs/faq/custom_repositories/) (category: **Lovelace** / plugin).
-2. Install **Better Jacuzzi UI**.
-3. Add the resource (or let HACS add it):  
-   `/local/community/better-jacuzzi-ui-card/better-jacuzzi-ui-card.js`  
-   (exact path depends on your HACS folder layout.)
+1. In HACS, use **Download from repository** and pick category **Dashboard** (Lovelace / frontend card) — **not** “Integration”. A plain JavaScript card repo is not a Home Assistant integration.
+2. Add this repository as a [custom repository](https://hacs.xyz/docs/faq/custom_repositories/).
+3. Install **Better Jacuzzi UI** and refresh the browser / resources as prompted.
+
+The release artifact is `better-jacuzzi-ui-card.js` at the **repository root** (same path as in [`hacs.json`](hacs.json)), which is what HACS expects on the default branch.
 
 ## Configure
 
@@ -53,7 +53,7 @@ npm install --legacy-peer-deps
 npm run build
 ```
 
-Output: `dist/better-jacuzzi-ui-card.js`.
+Output: `better-jacuzzi-ui-card.js` in the project root. **Commit this file** after `npm run build` so HACS validation on `master` succeeds (the file must exist in Git, not only locally).
 
 ## Translations
 

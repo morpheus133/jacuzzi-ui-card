@@ -1,2 +1,3 @@
 node_modules
-dist
+# Local build artifacts (bundle is committed at repo root for HACS)
+dist/
