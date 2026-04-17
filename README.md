@@ -1,84 +1,64 @@
-[![Version - 2.2.1](https://img.shields.io/badge/Version-2.2.1-009688?style=for-the-badge)](https://github.com/KartoffelToby/better-thermostat-ui-card)
-[![Discord](https://img.shields.io/discord/925725316540923914.svg?style=for-the-badge)](https://discord.gg/9BUegWTG3K)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg?style=for-the-badge)](https://github.com/hacs/integration)
+# Better Jacuzzi UI Card
 
-# UI Card for Better Thermostat
+Lovelace card for **spa / hot tub** control in [Home Assistant](https://www.home-assistant.io/): circular **climate** thermostat UI (same interaction pattern as common HA climate cards), optional **fan** modes from the climate entity, optional **switch** tiles (power, jets, filter, bubbles, sanitizer), and optional **error** sensor overlay.
 
-This is a advanced climate card for HA, but with some improvements for the custom [better_thermostat](https://github.com/KartoffelToby/better_thermostat) integration. (you need at least 1.3.0)
+Typical source: **Local Tuya** (or any integration) exposing a `climate` entity plus `switch` helpers.
 
-As for now the main improvement is the ability to see the extra status from better_thermostat like if a window open is detected, or nightmode is on or summer mode.
+## Install (HACS)
 
-![Better Thermostat UI Card](/assets/1.png)
-![](/assets/2.png)
-![](/assets/3.png)
-![](/assets/4.png)
-![](/assets/5.png)
-![](/assets/6.png)
-![](/assets/7.png)
-![](/assets/8.png)
+1. Add this repository as a [custom repository](https://hacs.xyz/docs/faq/custom_repositories/) (category: **Lovelace** / plugin).
+2. Install **Better Jacuzzi UI**.
+3. Add the resource (or let HACS add it):  
+   `/local/community/better-jacuzzi-ui-card/better-jacuzzi-ui-card.js`  
+   (exact path depends on your HACS folder layout.)
 
- 
-## Goals
+## Configure
 
-- [X] Add better_thermostat support for showing the extra status
-- [X] Improve the UI for Touch devices
-- [X] Show also the Humidity in the UI
+| Name | Type | Description |
+| ---- | ---- | ----------- |
+| `type` | string | **Required.** `custom:better-jacuzzi-ui-card` |
+| `entity` | string | **Required.** Climate entity ID. |
+| `name` | string | Optional title above the ring. |
+| `power` | string | Optional `switch.*` — only shown if set. |
+| `jets` | string | Optional `switch.*` |
+| `filter` | string | Optional `switch.*` |
+| `bubbles` | string | Optional `switch.*` |
+| `sanitizer` | string | Optional `switch.*` |
+| `error_entity` | string | Optional `sensor.*` — overlay when state is not `0`, empty, `none`, `unknown`, or `unavailable`. |
+| `hide_fan` | boolean | Hide fan speed row even if `fan_modes` exist. |
+| `disable_menu` | boolean | Hide the more-info (⋮) button. |
+| `disable_buttons` | boolean | Hide ± temperature buttons. |
+| `set_current_as_main` | boolean | Swap emphasis of current vs target temperature in the ring. |
+| `disable_heat` | boolean | Hide heat / heat_cool mode buttons. |
+| `disable_off` | boolean | Hide off mode button. |
 
-## Options
+Example:
 
-| Name                 | Type    | Default      | Description                                                                                            |
-| -------------------- | ------- | ------------ | ------------------------------------------------------------------------------------------------------ |
-| type                 | string  | **Required** | `custom:better-thermostat-ui-card`                                                                     |
-| entity               | string  | **Required** | The entity id of climate entity (must be a better_thermostat entity). Example: `climate.hvac`          |
-| eco_temperature      | number  | **optional** | target temp for night/away/eco mode triggerd by ui button                                              |
-| disable_window      | boolean  | **optional** | turn off the window open indicator                                                                     |
-| disable_summer      | boolean  | **optional** | turn off the summer indicator                                                                          |
-| disable_heat        | boolean  | **optional** | turn off the on/heat button                                                                          |
-| disable_eco         | boolean  | **optional** | turn off the eco button                                                                          |
-| disable_off         | boolean  | **optional** | turn off the off button                                                                         |
-| disable_buttons         | boolean  | **optional** | turn off the plus/minus buttons                                                                        |
-| name                | string/boolean  | **optional** | override the default entity name, us false to 
+```yaml
+type: custom:better-jacuzzi-ui-card
+entity: climate.thermostat
+name: Spa
+power: switch.power
+jets: switch.jets
+filter: switch.filter
+bubbles: switch.bubbles
+sanitizer: switch.sanitizer
+error_entity: sensor.error_code
+```
 
-## Help wanted!
+## Development
 
-It would be awsome if you help me to translate this card to other languages.
+```bash
+npm install --legacy-peer-deps
+npm run build
+```
 
-Create a PR, the Translation is done in json files checkout the en translation [here](https://github.com/KartoffelToby/better-thermostat-ui-card/blob/master/src/localize/languages/en.json)
-
-Please add your language to this list as well while you are making your PR. Put it in alphabetical order and according to [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes).
+Output: `dist/better-jacuzzi-ui-card.js`.
 
 ## Translations
 
-[INLANG Editor](https://fink.inlang.com/github.com/KartoffelToby/better-thermostat-ui-card)
+Strings live under `src/localize/languages/`. The visual editor uses `editor.card.jacuzzi.*` in `en.json` / `hu.json` (other locales fall back as in the existing JSON structure).
 
-[![inlang status badge](https://badge.inlang.com/?url=github.com/KartoffelToby/better-thermostat-ui-card)](https://fink.inlang.com/github.com/KartoffelToby/better-thermostat-ui-card?ref=badge)
+## Fork note
 
-What we have so far:
-- en - Reference 
-- bg
-- ca
-- cn
-- cs
-- da
-- de
-- el
-- es
-- fi
-- fr
-- hu
-- it
-- lv
-- nl
-- no
-- pl
-- pt
-- ro
-- ru
-- sv
-- sl
-- sk
-- tr
-- uk
-
-## Support me
-<a href="https://www.buymeacoffee.com/kartoffeltoby"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=kartoffeltoby&button_colour=0ac982&font_colour=000000&font_family=Cookie&outline_colour=000000&coffee_colour=ffffff"></a>
+This project was split from a thermostat-focused codebase; the bundle now contains **only** `better-jacuzzi-ui-card`. After you create the new GitHub repository, set `package.json` → `repository.url` to your clone URL and adjust any badge links you add to this README.

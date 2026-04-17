@@ -6,6 +6,9 @@
     "current_temperature": "Jelenlegi hőmérséklet",
     "target_temperature": "Célhőmérséklet"
   },
+  "jacuzzi": {
+    "error_code": "Hibakód"
+  },
   "editor": {
     "card": {
       "climate": {
@@ -19,6 +22,20 @@
         "disable_buttons": "Plusz/mínusz gombok letiltása",
         "eco_temperature": "Eco hőmérséklet",
         "set_current_as_main": "Aktuális hőmérséklet használata"
+      },
+      "jacuzzi": {
+        "power": "Tápellátás kapcsoló",
+        "jets": "Masszázs (jets)",
+        "filter": "Szűrő",
+        "bubbles": "Buborékok",
+        "sanitizer": "Szaniter / tisztító",
+        "error_entity": "Hibakód szenzor",
+        "hide_fan": "Ventilátor sebesség sor elrejtése",
+        "disable_menu": "További infó gomb kikapcsolása",
+        "disable_buttons": "Plusz/mínusz gombok kikapcsolása",
+        "set_current_as_main": "Cél és aktuális hőmérséklet helyének felcserélése a gyűrűn",
+        "disable_heat": "Fűtés mód gombok elrejtése",
+        "disable_off": "Kikapcsolás mód gomb elrejtése"
       }
     }
   },

@@ -1,7 +1,7 @@
 {
-  "name": "better-thermostat-ui-card",
-  "version": "2.2.0",
-  "description": "Lovelace better-thermostat-ui",
+  "name": "better-jacuzzi-ui-card",
+  "version": "1.0.0",
+  "description": "Lovelace card for spa / hot tub climate and switches (e.g. Local Tuya)",
   "keywords": [
     "home-assistant",
     "homeassistant",
@@ -9,12 +9,16 @@
     "automation",
     "lovelace",
     "custom-cards",
-    "better-thermostat",
-    "better_thermostat"
+    "jacuzzi",
+    "spa",
+    "hot-tub"
   ],
-  "module": "better-thermostat-ui-card.js",
-  "repository": "https://github.com/KartoffelToby/better-thermostat-ui-card",
-  "author": "Tobias Haber",
+  "module": "better-jacuzzi-ui-card.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YOUR_GITHUB_USER/better-jacuzzi-ui-card.git"
+  },
+  "author": "",
   "type": "module",
   "scripts": {
     "start": "rollup -c --watch",

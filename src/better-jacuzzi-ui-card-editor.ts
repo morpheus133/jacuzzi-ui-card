@@ -1,11 +1,10 @@
-import { LitElement } from 'lit';
-import { html, TemplateResult } from "lit";
+import { LitElement, html, TemplateResult } from "lit";
 import { customElement, property, state } from "lit/decorators.js";
 import memoizeOne from "memoize-one";
 import { assert } from "superstruct";
 import { fireEvent, LovelaceCardEditor, atLeastHaVersion, HomeAssistant } from "./ha";
 import setupCustomlocalize from "./localize/localize";
-import { ClimateCardConfig, climateCardConfigStruct } from "./climate-card-config";
+import { JacuzziCardConfig, jacuzziCardConfigStruct } from "./jacuzzi-card-config";
 
 const GENERIC_LABELS = [
     "icon_color",
@@ -32,34 +31,55 @@ const loadHaComponents = (version: string) => {
     }
 };
 
-const CLIMATE_LABELS = ["eco_temperature", "disable_window", "disable_summer", "disable_eco", "disable_heat", "disable_off", "disable_menu", "disable_battery_warning", "set_current_as_main", "disable_buttons"] as string[];
+const JACUZZI_LABELS = [
+    "power",
+    "jets",
+    "filter",
+    "bubbles",
+    "sanitizer",
+    "error_entity",
+    "hide_fan",
+    "disable_menu",
+    "disable_buttons",
+    "set_current_as_main",
+    "disable_heat",
+    "disable_off",
+] as string[];
 
 const computeSchema = memoizeOne(
     (): any[] => [
         { name: "entity", selector: { entity: { domain: ["climate"] } } },
         { name: "name", selector: { text: {} } },
-        { name: "eco_temperature", selector: { number: {placeholder: 20, min: 5, max: 45, default: 20} } },
         {
             type: "grid",
             name: "",
             schema: [
-                { name: "disable_window", selector: { boolean: {} } },
-                { name: "disable_summer", selector: { boolean: {} } },
-                { name: "disable_eco", selector: { boolean: {} } },
-                { name: "disable_heat", selector: { boolean: {} } },
-                { name: "disable_off", selector: { boolean: {} } },
-                { name: "disable_menu", selector: { boolean: {} } },
-                { name: "disable_battery_warning", selector: { boolean: {} } },
-                { name: "set_current_as_main", selector: { boolean: {} } },
-                { name: "disable_buttons", selector: { boolean: {}}}
+                { name: "power", selector: { entity: { domain: ["switch"] } } },
+                { name: "jets", selector: { entity: { domain: ["switch"] } } },
+                { name: "filter", selector: { entity: { domain: ["switch"] } } },
+                { name: "bubbles", selector: { entity: { domain: ["switch"] } } },
+                { name: "sanitizer", selector: { entity: { domain: ["switch"] } } },
+                { name: "error_entity", selector: { entity: { domain: ["sensor"] } } },
             ],
         },
-    ]
+        {
+            type: "grid",
+            name: "",
+            schema: [
+                { name: "hide_fan", selector: { boolean: {} } },
+                { name: "disable_menu", selector: { boolean: {} } },
+                { name: "disable_buttons", selector: { boolean: {} } },
+                { name: "set_current_as_main", selector: { boolean: {} } },
+                { name: "disable_heat", selector: { boolean: {} } },
+                { name: "disable_off", selector: { boolean: {} } },
+            ],
+        },
+    ],
 );
 
-@customElement("better-thermostat-ui-card-editor")
-export class ClimateCardEditor extends LitElement implements LovelaceCardEditor {
-    @state() private _config?: ClimateCardConfig;
+@customElement("better-jacuzzi-ui-card-editor")
+export class JacuzziCardEditor extends LitElement implements LovelaceCardEditor {
+    @state() private _config?: JacuzziCardConfig;
     @property({ attribute: false }) public hass!: HomeAssistant;
 
     connectedCallback() {
@@ -67,8 +87,8 @@ export class ClimateCardEditor extends LitElement implements LovelaceCardEditor 
         void loadHaComponents(this.hass.connection.haVersion);
     }
 
-    public setConfig(config: ClimateCardConfig): void {
-        assert(config, climateCardConfigStruct);
+    public setConfig(config: JacuzziCardConfig): void {
+        assert(config, jacuzziCardConfigStruct);
         this._config = config;
     }
 
@@ -78,8 +98,8 @@ export class ClimateCardEditor extends LitElement implements LovelaceCardEditor 
         if (GENERIC_LABELS.includes(schema.name)) {
             return customLocalize(`editor.card.generic.${schema.name}`);
         }
-        if (CLIMATE_LABELS.includes(schema.name)) {
-            return customLocalize(`editor.card.climate.${schema.name}`);
+        if (JACUZZI_LABELS.includes(schema.name)) {
+            return customLocalize(`editor.card.jacuzzi.${schema.name}`);
         }
         return this.hass!.localize(`ui.panel.lovelace.editor.card.generic.${schema.name}`);
     };
@@ -88,7 +108,6 @@ export class ClimateCardEditor extends LitElement implements LovelaceCardEditor 
         if (!this.hass || !this._config) {
             return html``;
         }
-
 
         const schema = computeSchema();
 

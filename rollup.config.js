@@ -60,10 +60,10 @@ const plugins = [
 
 export default [
     {
-        input: "src/better-thermostat-ui.ts",
+        input: "src/better-jacuzzi-ui.ts",
         output: {
             inlineDynamicImports: true,
-            file: "dist/better-thermostat-ui-card.js",
+            file: "dist/better-jacuzzi-ui-card.js",
             format: "es",
         },
         plugins,

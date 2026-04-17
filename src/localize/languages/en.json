@@ -1,10 +1,30 @@
 {
   "common": {
     "version": "version",
-    "current": "current"
+    "current": "current",
+    "current_temperature": "Current temperature",
+    "target_temperature": "Target temperature",
+    "current_humidity": "Current humidity"
+  },
+  "jacuzzi": {
+    "error_code": "Error code"
   },
   "editor": {
     "card": {
+      "jacuzzi": {
+        "power": "Power switch",
+        "jets": "Jets",
+        "filter": "Filter",
+        "bubbles": "Bubbles",
+        "sanitizer": "Sanitizer",
+        "error_entity": "Error code sensor",
+        "hide_fan": "Hide fan speed row (even if supported)",
+        "disable_menu": "Disable more-info menu button",
+        "disable_buttons": "Disable plus/minus buttons",
+        "set_current_as_main": "Swap target with current temperature in the ring",
+        "disable_heat": "Hide heat / heat_cool mode buttons",
+        "disable_off": "Hide off mode button"
+      },
       "climate": {
         "disable_window": "Turn off the window open indicator",
         "disable_summer": "Turn off the summer indicator",
