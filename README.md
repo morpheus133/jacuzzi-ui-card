@@ -4,6 +4,8 @@ Lovelace card for **spa / hot tub** control in [Home Assistant](https://www.home
 
 Typical source: **Local Tuya** (or any integration) exposing a `climate` entity plus `switch` helpers.
 
+![Better Jacuzzi UI Card preview](images/card-preview.svg)
+
 ## Install (HACS)
 
 1. In HACS, use **Download from repository** and pick category **Dashboard** (Lovelace / frontend card) — **not** “Integration”. A plain JavaScript card repo is not a Home Assistant integration.
